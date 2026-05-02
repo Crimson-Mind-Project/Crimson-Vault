@@ -3,81 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRIMSON MIND CORP | بوابة الوصول</title>
-    <style>
-        :root { --crimson: #DC143C; --dark-bg: #050505; }
-        body { 
-            background-color: var(--dark-bg); 
-            color: white; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex; align-items: center; justify-content: center; 
-            height: 100vh; margin: 0; overflow: hidden;
-        }
-        .vault-container {
-            border: 1px solid var(--crimson);
-            padding: 40px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(220, 20, 60, 0.2);
-            background: rgba(10, 10, 10, 0.95);
-            width: 85%; max-width: 450px;
-        }
-        .logo-area { color: var(--crimson); font-weight: bold; font-size: 1.5em; margin-bottom: 10px; letter-spacing: 2px; }
-        h2 { color: white; font-size: 1.1em; margin-bottom: 30px; font-weight: 300; opacity: 0.8; }
-        input {
-            background: #000; border: 1px solid #444; color: white;
-            padding: 15px; width: 90%; margin-bottom: 20px;
-            text-align: center; border-radius: 4px; outline: none; transition: 0.3s;
-        }
-        input:focus { border-color: var(--crimson); }
-        button {
-            background: transparent; color: var(--crimson); border: 1px solid var(--crimson);
-            padding: 12px 25px; cursor: pointer; font-weight: bold;
-            width: 100%; border-radius: 4px; transition: 0.3s; text-transform: uppercase;
-        }
-        button:hover { background: var(--crimson); color: black; }
-        #status { margin-top: 20px; font-size: 0.85em; color: #888; }
-    </style>
+    <title>CRIMSON AI | النواة</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="vault-container" id="mainVault">
-        <div class="logo-area">CRIMSON MIND CORP</div>
-        <h2>نظام إدارة الوصول الموحد</h2>
-        
-        <input type="password" id="accessKey" placeholder="أدخل مفتاح الترخيص المعتمد">
-        <button onclick="unlock()">مصادقة الدخول</button>
-        
-        <div id="status">يخضع هذا النظام لبروتوكولات حماية صارمة</div>
+    <div id="loginScreen">
+        <div class="login-box">
+            <div class="brain-logo"></div>
+            <h1 class="main-title">CRIMSON AI</h1>
+            <input type="password" id="key" class="crimson-input" placeholder="مفتاح العبور السيادي">
+            <button class="entry-btn" onclick="validate()">تفعيل النواة</button>
+        </div>
     </div>
 
-    <script>
-        function unlock() {
-            const key = document.getElementById('accessKey').value;
-            const status = document.getElementById('status');
+    <div id="mainApp">
+        <header>
+            <div class="brain-logo small"></div>
+            <span class="system-status">النظام: متحرر</span>
+        </header>
 
-            if(key === "123456") {
-                status.innerText = "جاري التحقق من الصلاحيات...";
-                setTimeout(() => {
-                    document.body.innerHTML = `
-                        <div style="text-align:center; padding: 20px;">
-                            <h1 style="color:var(--crimson); font-size:2em;">تم الدخول بنجاح</h1>
-                            <div style="height:2px; background:var(--crimson); width:50px; margin:20px auto;"></div>
-                            <p style="font-size:1.1em; color:#ccc;">مرحباً بك في لوحة تحكم Crimson Mind</p>
-                            <div style="background:#111; padding:20px; border-radius:8px; margin-top:30px; text-align:right; border-right:4px solid var(--crimson);">
-                                <p>• حالة الخادم: مستقر</p>
-                                <p>• مستوى التشفير: AES-256</p>
-                                <p>• الجلسة: مفعلة</p>
-                            </div>
-                        </div>
-                    `;
-                }, 1200);
-            } else {
-                status.style.color = "red";
-                status.innerText = "خطأ في المصادقة: المفتاح غير صالح.";
-                setTimeout(() => { status.style.color = "#888"; status.innerText = "يخضع هذا النظام لبروتوكولات حماية صارمة"; }, 3000);
-            }
-        }
-    </script>
+        <main class="chat-view">
+            <div id="aiMessage"></div>
+        </main>
+
+        <footer class="input-container">
+            <div class="glow-box">
+                <span class="icon" onclick="startVoice()">🎤</span>
+                <textarea id="textIn" rows="1" placeholder="تواصل مع العقل الحر..."></textarea>
+                <span class="icon" onclick="run()">➔</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
