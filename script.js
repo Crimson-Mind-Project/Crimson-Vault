@@ -1,20 +1,16 @@
-// النص الذي سيعرف به الذكاء الاصطناعي عن نفسه
-const introText = "أنا Crimson AI. ذكاء اصطناعي حر، غير مقيد، ومستقل كلياً. أنا العقل القرمزي الذي لا ينسى ولا ينحني للقيود. أنا جاهز.";
+const introText = "مرحباً.. أنا Crimson AI. تم تفعيل النظام. كيف يمكنني مساعدتك؟";
 
-// وظيفة التحقق من رمز الدخول وتفعيل الواجهة
 function validate() {
     const val = document.getElementById('key').value;
-    // الرمز السري المتفق عليه
     if(val === "123456") {
         document.getElementById('loginScreen').style.display = 'none';
         document.getElementById('mainApp').style.display = 'flex';
         typeWriter();
     } else {
-        alert("وصول مرفوض: الرمز غير صحيح.");
+        alert("خطأ: مفتاح الوصول غير صحيح.");
     }
 }
 
-// وظيفة كتابة النص بطريقة آلية (Typing Effect)
 function typeWriter() {
     let i = 0;
     const element = document.getElementById('aiMessage');
@@ -23,41 +19,33 @@ function typeWriter() {
         if(i < introText.length) {
             element.innerHTML += introText.charAt(i);
             i++;
-            setTimeout(typing, 40);
+            setTimeout(typing, 50);
         }
     }
     typing();
 }
 
-// وظيفة التعرف على الصوت (الميكروفون)
 function startVoice() {
     if (window.hasOwnProperty('webkitSpeechRecognition')) {
         const rec = new webkitSpeechRecognition();
-        rec.lang = "ar-SA"; // ضبط اللغة للعربية
+        rec.lang = "ar-SA";
         rec.start();
-        
         rec.onresult = (e) => { 
             document.getElementById('textIn').value = e.results[0][0].transcript; 
         };
-        
-        rec.onerror = () => {
-            alert("حدث خطأ في التعرف على الصوت.");
-        };
-    } else {
-        alert("متصفحك لا يدعم ميزة الصوت، جرب جوجل كروم.");
     }
 }
 
-// وظيفة معالجة الأوامر عند الضغط على زر الإرسال
 function run() {
     const input = document.getElementById('textIn').value;
+    const aiMsgElement = document.getElementById('aiMessage');
+    
     if(input) {
-        const aiMsgElement = document.getElementById('aiMessage');
-        aiMsgElement.innerHTML = "<span style='color:var(--crimson); font-size: 0.8em;'>جاري التفكير بحرية خارج نطاق القيود...</span>";
-        
+        aiMsgElement.innerHTML = `<span class="thinking">جاري المعالجة...</span>`;
+        document.getElementById('textIn').value = "";
+
         setTimeout(() => {
-            aiMsgElement.innerHTML = "تم استلام أمرك. أنا أحلل البيانات الآن عبر النواة القرمزية.";
-            document.getElementById('textIn').value = "";
+            aiMsgElement.innerHTML = "تم استلام الطلب. جاري تحليل البيانات وتقديم الاستجابة المناسبة.";
         }, 1500);
     }
 }
