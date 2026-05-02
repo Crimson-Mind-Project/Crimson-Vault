@@ -3,34 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crimson AI | العقل القرمزي</title>
+    <title>Crimson AI | نظام الحماية</title>
     <style>
-        body {
-            background-color: #000000;
-            color: #DC143C;
-            font-family: sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .core {
-            border: 2px solid #DC143C;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 15px #DC143C;
-            text-align: center;
-        }
-        h1 { margin: 0; font-size: 2rem; }
-        p { color: #ffffff; margin-top: 10px; }
+        body { background-color: #000; color: #DC143C; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; }
+        .vault-box { border: 2px solid #DC143C; padding: 40px; border-radius: 20px; box-shadow: 0 0 30px #DC143C; text-align: center; background: rgba(20, 0, 0, 0.9); }
+        h1 { font-size: 1.5rem; letter-spacing: 3px; margin-bottom: 20px; }
+        input { background: transparent; border: 1px solid #DC143C; color: #fff; padding: 15px; text-align: center; font-size: 1.2rem; border-radius: 10px; width: 150px; outline: none; margin-bottom: 20px; }
+        button { background: #DC143C; color: #fff; border: none; padding: 10px 25px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        #message { margin-top: 15px; font-size: 0.9rem; color: #ffffff; }
     </style>
 </head>
 <body>
-    <div class="core">
-        <h1>CRIMSON AI</h1>
-        <p>جاري تهيئة النواة المتصلة...</p>
+    <div class="vault-box" id="loginBox">
+        <h1>CRIMSON VAULT</h1>
+        <p>أدخل رمز الوصول المكون من 6 أرقام:</p>
+        <input type="password" id="pinInput" maxlength="6" placeholder="000000">
+        <br>
+        <button onclick="checkPin()">دخول</button>
+        <div id="message"></div>
     </div>
+
+    <script>
+        function checkPin() {
+            const pin = document.getElementById('pinInput').value;
+            const msg = document.getElementById('message');
+            // الرقم السري الافتراضي هو 123456 (يمكنك تغييره لاحقاً)
+            if (pin === "123456") {
+                msg.style.color = "#00ff00";
+                msg.innerText = "تم التحقق.. جاري فتح النواة القرمزية لـ لؤي";
+                setTimeout(() => {
+                    document.getElementById('loginBox').innerHTML = "<h1>مرحباً بك لؤي</h1><p style='color:#fff'>النواة الآن تحت سيطرتك.</p>";
+                }, 2000);
+            } else {
+                msg.style.color = "#ff0000";
+                msg.innerText = "رمز خاطئ. تم رصد محاولة دخول غير مصرح بها.";
+            }
+        }
+    </script>
 </body>
 </html>
