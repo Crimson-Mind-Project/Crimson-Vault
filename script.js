@@ -1,16 +1,28 @@
-const introText = "مرحباً.. أنا Crimson AI. تم تفعيل النظام. كيف يمكنني مساعدتك؟";
-
-function validate() {
-    const val = document.getElementById('key').value;
-    if(val === "123456") {
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('mainApp').style.display = 'flex';
-        typeWriter();
-    } else {
-        alert("خطأ: مفتاح الوصول غير صحيح.");
+function moveNext(current, nextId) {
+    if (current.value.length >= 1) {
+        document.getElementById(nextId).focus();
     }
 }
 
+function checkOTP() {
+    let pin = "";
+    for (let i = 1; i <= 6; i++) {
+        pin += document.getElementById("otp" + i).value;
+    }
+    if (pin.length === 6) {
+        if (pin === "123456") {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'flex';
+            typeWriter();
+        } else {
+            alert("رمز الوصول غير صحيح");
+            for (let i = 1; i <= 6; i++) document.getElementById("otp" + i).value = "";
+            document.getElementById("otp1").focus();
+        }
+    }
+}
+
+const introText = "مرحباً.. أنا Crimson AI. تم تفعيل النظام.";
 function typeWriter() {
     let i = 0;
     const element = document.getElementById('aiMessage');
@@ -25,27 +37,13 @@ function typeWriter() {
     typing();
 }
 
-function startVoice() {
-    if (window.hasOwnProperty('webkitSpeechRecognition')) {
-        const rec = new webkitSpeechRecognition();
-        rec.lang = "ar-SA";
-        rec.start();
-        rec.onresult = (e) => { 
-            document.getElementById('textIn').value = e.results[0][0].transcript; 
-        };
-    }
-}
-
 function run() {
     const input = document.getElementById('textIn').value;
-    const aiMsgElement = document.getElementById('aiMessage');
-    
     if(input) {
-        aiMsgElement.innerHTML = `<span class="thinking">جاري المعالجة...</span>`;
-        document.getElementById('textIn').value = "";
-
+        document.getElementById('aiMessage').innerHTML = "جاري المعالجة...";
         setTimeout(() => {
-            aiMsgElement.innerHTML = "تم استلام الطلب. جاري تحليل البيانات وتقديم الاستجابة المناسبة.";
+            document.getElementById('aiMessage').innerHTML = "تم استلام طلبك. جاري التحليل.";
+            document.getElementById('textIn').value = "";
         }, 1500);
     }
 }
