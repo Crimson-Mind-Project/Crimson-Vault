@@ -1,48 +1,23 @@
-function moveNext(current, nextId) {
-    if (current.value.length >= 1) {
-        document.getElementById(nextId).focus();
-    }
-}
-
-function checkOTP() {
-    let pin = "";
-    for (let i = 1; i <= 6; i++) {
-        pin += document.getElementById("otp" + i).value;
-    }
-    if (pin.length === 6) {
-        if (pin === "123456") {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('mainApp').style.display = 'flex';
-            typeWriter();
-        } else {
-            alert("رمز الوصول غير صحيح");
-            for (let i = 1; i <= 6; i++) document.getElementById("otp" + i).value = "";
-            document.getElementById("otp1").focus();
-        }
-    }
-}
-
-const introText = "مرحباً.. أنا Crimson AI. تم تفعيل النظام.";
-function typeWriter() {
-    let i = 0;
-    const element = document.getElementById('aiMessage');
-    element.innerHTML = "";
-    function typing() {
-        if(i < introText.length) {
-            element.innerHTML += introText.charAt(i);
-            i++;
-            setTimeout(typing, 50);
-        }
-    }
-    typing();
+function selectOption(text) {
+    const input = document.getElementById('textIn');
+    input.value = text;
+    // تأثير بصري بسيط عند الاختيار
+    input.style.color = "var(--crimson)";
+    setTimeout(() => { input.style.color = "white"; }, 500);
 }
 
 function run() {
     const input = document.getElementById('textIn').value;
     if(input) {
-        document.getElementById('aiMessage').innerHTML = "جاري المعالجة...";
+        document.getElementById('startView').style.display = 'none';
+        const aiMsg = document.getElementById('aiMessage');
+        aiMsg.style.display = 'block';
+        
+        // جاري المعالجة تظهر بالأحمر القرمزي
+        aiMsg.innerHTML = `<span style="color:var(--crimson); font-size:0.8em;">جاري استدعاء النواة...</span>`;
+        
         setTimeout(() => {
-            document.getElementById('aiMessage').innerHTML = "تم استلام طلبك. جاري التحليل.";
+            aiMsg.innerHTML = "تم الاتصال بـ Crimson AI. أنا جاهز لمعالجة طلبك.";
             document.getElementById('textIn').value = "";
         }, 1500);
     }
