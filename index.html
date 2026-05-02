@@ -12,8 +12,14 @@
         <div class="login-box">
             <div class="brain-logo"></div>
             <h1 class="main-title">CRIMSON AI</h1>
-            <input type="password" id="key" class="crimson-input" placeholder="مفتاح الوصول">
-            <button class="entry-btn" onclick="validate()">دخول</button>
+            <div class="otp-container">
+                <input type="number" class="otp-input" maxlength="1" id="otp1" oninput="moveNext(this, 'otp2')">
+                <input type="number" class="otp-input" maxlength="1" id="otp2" oninput="moveNext(this, 'otp3')">
+                <input type="number" class="otp-input" maxlength="1" id="otp3" oninput="moveNext(this, 'otp4')">
+                <input type="number" class="otp-input" maxlength="1" id="otp4" oninput="moveNext(this, 'otp5')">
+                <input type="number" class="otp-input" maxlength="1" id="otp5" oninput="moveNext(this, 'otp6')">
+                <input type="number" class="otp-input" maxlength="1" id="otp6" oninput="checkOTP()">
+            </div>
         </div>
     </div>
 
@@ -22,11 +28,9 @@
             <div class="brain-logo small"></div>
             <span class="system-status">CRIMSON SYSTEM ACTIVE</span>
         </header>
-
         <main class="chat-view">
             <div id="aiMessage"></div>
         </main>
-
         <footer class="input-container">
             <div class="glow-box">
                 <span class="icon" onclick="startVoice()">🎤</span>
