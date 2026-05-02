@@ -1,7 +1,6 @@
 :root {
     --crimson: #DC143C;
     --bg: #000000;
-    --card: #0a0a0a;
     --text: #ffffff;
 }
 
@@ -9,69 +8,49 @@ body {
     background-color: var(--bg);
     color: var(--text);
     font-family: 'Segoe UI', sans-serif;
-    margin: 0; height: 100vh; display: flex; flex-direction: column; overflow: hidden;
+    margin: 0; height: 100vh; overflow: hidden;
+}
+
+/* جعل شاشة الدخول في منتصف الهاتف تماماً */
+#loginScreen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #000; display: flex; align-items: center; justify-content: center; z-index: 1000;
+}
+
+.login-box {
+    text-align: center; display: flex; flex-direction: column; align-items: center;
 }
 
 .brain-logo {
-    width: 90px; height: 90px; margin: 20px auto;
-    background: radial-gradient(circle, var(--crimson) 20%, transparent 70%);
-    border-radius: 50%; position: relative;
-    box-shadow: 0 0 30px var(--crimson);
-    animation: pulse 3s infinite ease-in-out;
+    width: 80px; height: 80px; background: radial-gradient(circle, var(--crimson) 20%, transparent 70%);
+    border-radius: 50%; box-shadow: 0 0 30px var(--crimson); animation: pulse 3s infinite;
 }
 
-.brain-logo::before {
-    content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 10 Q60 30 50 50 Q40 70 50 90 M20 40 L80 45 M30 70 L70 65" stroke="black" stroke-width="2" fill="none" opacity="0.6"/></svg>');
-    background-size: cover;
+.main-title {
+    color: var(--crimson); font-size: 2.2em; letter-spacing: 6px;
+    margin: 20px 0 30px 0; font-weight: 900; text-shadow: 0 0 15px var(--crimson);
 }
 
-.brain-logo.small { width: 40px; height: 40px; margin: 5px; }
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.05); opacity: 1; }
+/* تنسيق المربعات الستة */
+.otp-container { display: flex; gap: 8px; direction: ltr; }
+.otp-input {
+    width: 42px; height: 50px; background: #0a0a0a; border: 1px solid #222;
+    border-radius: 8px; color: var(--crimson); text-align: center; font-size: 1.4em; outline: none;
 }
+.otp-input:focus { border-color: var(--crimson); box-shadow: 0 0 10px var(--crimson); }
 
-#loginScreen {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000;
-}
+/* إخفاء الأسهم */
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
-.main-title { color: var(--crimson); font-size: 2em; letter-spacing: 5px; margin-bottom: 30px; }
-
-.crimson-input {
-    background: #000; border: 1px solid #222; color: white;
-    text-align: center; font-size: 1.1em; padding: 15px; width: 250px;
-    border-radius: 12px; margin-bottom: 20px; outline: none;
-}
-
-.entry-btn {
-    background: var(--crimson); color: white; border: none;
-    padding: 12px 40px; border-radius: 25px; cursor: pointer; font-weight: bold;
-}
-
+/* بقية تنسيق الواجهة */
 #mainApp { display: none; flex-direction: column; height: 100vh; }
-
-header { padding: 15px; border-bottom: 1px solid #111; display: flex; align-items: center; }
-
-.system-status { color: var(--crimson); font-size: 0.7em; letter-spacing: 2px; font-weight: bold; }
-
-.chat-view { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
-
-#aiMessage { font-size: 1.5em; text-align: center; max-width: 800px; line-height: 1.6; }
-
+.brain-logo.small { width: 40px; height: 40px; margin: 10px; }
+header { border-bottom: 1px solid #111; display: flex; align-items: center; }
+.system-status { color: var(--crimson); font-size: 0.7em; letter-spacing: 2px; }
+.chat-view { flex: 1; display: flex; justify-content: center; align-items: center; }
+#aiMessage { font-size: 1.5em; text-align: center; max-width: 80%; }
 .input-container { padding: 20px; display: flex; justify-content: center; }
-
-.glow-box {
-    width: 100%; max-width: 700px; background: var(--card);
-    border: 1px solid #1a1a1a; border-radius: 30px; padding: 10px 20px;
-    display: flex; align-items: center;
-}
-
-textarea { flex: 1; background: transparent; border: none; color: white; outline: none; font-size: 1em; resize: none; }
-
-.icon { color: var(--crimson); cursor: pointer; font-size: 1.3em; margin: 0 10px; }
-
-.thinking { color: var(--crimson); font-size: 0.8em; opacity: 0.5; animation: blink 1s infinite; }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.glow-box { width: 90%; background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 30px; padding: 10px; display: flex; }
+textarea { flex: 1; background: transparent; border: none; color: white; outline: none; resize: none; }
+.icon { color: var(--crimson); margin: 0 10px; cursor: pointer; }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
