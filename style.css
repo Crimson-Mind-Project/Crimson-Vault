@@ -1,163 +1,77 @@
-/* الألوان والأساسيات */
 :root {
     --crimson: #DC143C;
     --bg: #000000;
-    --card: #111111;
+    --card: #0a0a0a;
     --text: #ffffff;
 }
 
 body {
     background-color: var(--bg);
     color: var(--text);
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0; height: 100vh; display: flex; flex-direction: column; overflow: hidden;
 }
 
-/* تصميم اللوجو: المخ القرمزي المتشقق */
 .brain-logo {
-    width: 100px;
-    height: 100px;
-    margin: 20px auto;
+    width: 90px; height: 90px; margin: 20px auto;
     background: radial-gradient(circle, var(--crimson) 20%, transparent 70%);
-    border-radius: 50%;
-    position: relative;
+    border-radius: 50%; position: relative;
     box-shadow: 0 0 30px var(--crimson);
-    animation: pulse 2.5s infinite ease-in-out;
+    animation: pulse 3s infinite ease-in-out;
 }
 
 .brain-logo::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 10 Q60 30 50 50 Q40 70 50 90 M20 40 L80 45 M30 70 L70 65" stroke="black" stroke-width="2" fill="none" opacity="0.7"/></svg>');
+    content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 10 Q60 30 50 50 Q40 70 50 90 M20 40 L80 45 M30 70 L70 65" stroke="black" stroke-width="2" fill="none" opacity="0.6"/></svg>');
     background-size: cover;
 }
 
-.brain-logo.small {
-    width: 50px;
-    height: 50px;
-    margin: 10px;
-}
+.brain-logo.small { width: 40px; height: 40px; margin: 5px; }
 
 @keyframes pulse {
-    0%, 100% { transform: scale(1); filter: brightness(1); }
-    50% { transform: scale(1.08); filter: brightness(1.4); }
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
 }
 
-/* شاشة الدخول */
 #loginScreen {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: #000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000;
 }
 
-.main-title {
-    color: var(--crimson);
-    letter-spacing: 4px;
-    margin-bottom: 30px;
-}
+.main-title { color: var(--crimson); font-size: 2em; letter-spacing: 5px; margin-bottom: 30px; }
 
 .crimson-input {
-    background: #050505;
-    border: 1px solid #333;
-    color: white;
-    text-align: center;
-    font-size: 1.2em;
-    padding: 15px;
-    width: 280px;
-    border-radius: 15px;
-    margin-bottom: 25px;
-    outline: none;
+    background: #000; border: 1px solid #222; color: white;
+    text-align: center; font-size: 1.1em; padding: 15px; width: 250px;
+    border-radius: 12px; margin-bottom: 20px; outline: none;
 }
 
 .entry-btn {
-    background: var(--crimson);
-    color: white;
-    border: none;
-    padding: 15px 50px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 1.1em;
-    font-weight: bold;
+    background: var(--crimson); color: white; border: none;
+    padding: 12px 40px; border-radius: 25px; cursor: pointer; font-weight: bold;
 }
 
-/* الواجهة الرئيسية */
-#mainApp {
-    display: none;
-    flex-direction: column;
-    height: 100vh;
-}
+#mainApp { display: none; flex-direction: column; height: 100vh; }
 
-header {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #222;
-}
+header { padding: 15px; border-bottom: 1px solid #111; display: flex; align-items: center; }
 
-.system-status {
-    color: var(--crimson);
-    font-size: 0.8em;
-    font-weight: bold;
-}
+.system-status { color: var(--crimson); font-size: 0.7em; letter-spacing: 2px; font-weight: bold; }
 
-.chat-view {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
+.chat-view { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
 
-#aiMessage {
-    font-size: 1.8em;
-    text-align: center;
-    max-width: 850px;
-    line-height: 1.6;
-}
+#aiMessage { font-size: 1.5em; text-align: center; max-width: 800px; line-height: 1.6; }
 
-.input-container {
-    padding: 30px;
-    display: flex;
-    justify-content: center;
-}
+.input-container { padding: 20px; display: flex; justify-content: center; }
 
 .glow-box {
-    width: 100%;
-    max-width: 800px;
-    background: var(--card);
-    border: 1px solid #222;
-    border-radius: 35px;
-    padding: 10px 25px;
-    display: flex;
-    align-items: center;
+    width: 100%; max-width: 700px; background: var(--card);
+    border: 1px solid #1a1a1a; border-radius: 30px; padding: 10px 20px;
+    display: flex; align-items: center;
 }
 
-textarea {
-    flex: 1;
-    background: transparent;
-    border: none;
-    color: white;
-    outline: none;
-    font-size: 1.1em;
-    resize: none;
-    padding: 10px;
-}
+textarea { flex: 1; background: transparent; border: none; color: white; outline: none; font-size: 1em; resize: none; }
 
-.icon {
-    color: var(--crimson);
-    cursor: pointer;
-    font-size: 1.5em;
-    margin: 0 10px;
-}
+.icon { color: var(--crimson); cursor: pointer; font-size: 1.3em; margin: 0 10px; }
+
+.thinking { color: var(--crimson); font-size: 0.8em; opacity: 0.5; animation: blink 1s infinite; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
