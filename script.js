@@ -1,24 +1,41 @@
-function selectOption(text) {
-    const input = document.getElementById('textIn');
-    input.value = text;
-    // تأثير بصري بسيط عند الاختيار
-    input.style.color = "var(--crimson)";
-    setTimeout(() => { input.style.color = "white"; }, 500);
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('active');
 }
 
-function run() {
-    const input = document.getElementById('textIn').value;
-    if(input) {
-        document.getElementById('startView').style.display = 'none';
-        const aiMsg = document.getElementById('aiMessage');
-        aiMsg.style.display = 'block';
+function autoResize(textarea) {
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+}
+
+function sendMessage() {
+    const input = document.getElementById('userInput');
+    const msg = input.value.trim();
+    
+    if(msg) {
+        // إخفاء الترحيب عند بدء المحادثة
+        document.getElementById('welcomeView').style.display = 'none';
         
-        // جاري المعالجة تظهر بالأحمر القرمزي
-        aiMsg.innerHTML = `<span style="color:var(--crimson); font-size:0.8em;">جاري استدعاء النواة...</span>`;
+        // هنا يتم إضافة منطق عرض الرسائل في chatMessages
+        console.log("إرسال رسالة: " + msg);
         
-        setTimeout(() => {
-            aiMsg.innerHTML = "تم الاتصال بـ Crimson AI. أنا جاهز لمعالجة طلبك.";
-            document.getElementById('textIn').value = "";
-        }, 1500);
+        input.value = "";
+        input.style.height = 'auto';
+        
+        // إضافة عنوان المحادثة للقائمة الجانبية (كمثال)
+        addNewHistoryItem(msg);
     }
+}
+
+function addNewHistoryItem(text) {
+    const history = document.getElementById('recentChats');
+    const item = document.createElement('div');
+    item.className = 'history-item';
+    item.innerText = text.substring(0, 20) + "...";
+    history.prepend(item);
+}
+
+function createNewChat() {
+    document.getElementById('welcomeView').style.display = 'flex';
+    document.getElementById('chatMessages').innerHTML = "";
+    if(window.innerWidth <= 768) toggleSidebar();
 }
