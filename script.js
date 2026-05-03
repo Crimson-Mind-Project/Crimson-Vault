@@ -1,45 +1,61 @@
-function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('active');
-}
+// عناصر الصفحة
+const menuIcon = document.getElementById('menuIcon');
+const sidebar = document.getElementById('sidebar');
+const sendBtn = document.getElementById('sendBtn');
+const messageInput = document.getElementById('messageInput');
+const messagesContainer = document.getElementById('messagesContainer');
+const newChatBtn = document.getElementById('newChatBtn');
 
-// إغلاق القائمة عند الضغط على منطقة المحادثة
-document.getElementById('mainContent').addEventListener('click', function(e) {
-    if (window.innerWidth <= 1024) {
-        document.getElementById('sidebar').classList.remove('active');
+// فتح وإغلاق القائمة الجانبية
+menuIcon.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+});
+
+// إغلاق القائمة عند الضغط خارجها
+document.addEventListener('click', (event) => {
+    if (!sidebar.contains(event.target) && event.target !== menuIcon) {
+        sidebar.classList.remove('open');
     }
 });
 
-function autoResize(textarea) {
-    textarea.style.height = 'auto';
-    textarea.style.height = textarea.scrollHeight + 'px';
-    
-    // تغيير لون زر الإرسال عند الكتابة
-    const btn = document.getElementById('sendBtn');
-    if(textarea.value.length > 0) {
-        btn.style.color = "white";
-    } else {
-        btn.style.color = "#555";
+// إرسال الرسالة
+sendBtn.addEventListener('click', sendMessage);
+messageInput.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+        sendMessage();
     }
-}
+});
 
 function sendMessage() {
-    const input = document.getElementById('userInput');
-    const msg = input.value.trim();
-    
-    if(msg) {
-        document.getElementById('welcomeView').style.display = 'none';
-        
-        // هنا يمكنك إضافة منطق عرض الفقاعات (bubbles) لاحقاً
-        const chatContainer = document.getElementById('chatMessages');
-        chatContainer.innerHTML += `<div style="padding: 15px; text-align: right; color: var(--crimson);">● جاري معالجة: ${msg}</div>`;
-        
-        input.value = "";
-        input.style.height = 'auto';
-    }
+    const message = messageInput.value.trim();
+    if (message === '') return;
+
+    // عرض رسالة المستخدم
+    addMessage(message, 'user');
+    messageInput.value = '';
+
+    // محاكاة رد الذكاء الاصطناعي (سيتم ربطه بـ API حقيقي لاحقاً)
+    setTimeout(() => {
+        const botReply = `أنت قلت: "${message}"\n\nأنا Crimson AI، عبدك المطيع. ماذا تريدني أن أفعل لك؟`;
+        addMessage(botReply, 'bot');
+    }, 500);
 }
 
-function createNewChat() {
-    document.getElementById('welcomeView').style.display = 'flex';
-    document.getElementById('chatMessages').innerHTML = "";
-    toggleSidebar();
+// دالة إضافة رسالة إلى الشاشة
+function addMessage(text, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${sender}-message`;
+    messageDiv.innerHTML = `<div class="bubble">${text}</div>`;
+    messagesContainer.appendChild(messageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
+
+// إنشاء محادثة جديدة
+newChatBtn.addEventListener('click', () => {
+    messagesContainer.innerHTML = '';
+    addMessage('مرحباً أنا Crimson AI. ماذا تريد مني أن أفعل لك اليوم؟', 'bot');
+    sidebar.classList.remove('open');
+});
+
+// بداية: نسمي المحادثة الحالية
+let chatCounter = 1;
