@@ -13,8 +13,8 @@ menuIcon.addEventListener('click', () => {
 
 // إغلاق القائمة عند الضغط خارجها
 document.addEventListener('click', (event) => {
-    if (!sidebar.contains(event.target) && event.target !== menuIcon) {
-        sidebar.classList.remove('open');
+    if (!sidebar.contains(event.target) && event.target !== menuIcon && !sidebar.classList.contains('open')) {
+    sidebar.classList.remove('open');
     }
 });
 
