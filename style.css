@@ -4,6 +4,12 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background-color: #1e1e1e;
     font-family: 'Segoe UI', 'Roboto', sans-serif;
@@ -21,23 +27,56 @@ body {
 .sidebar {
     width: 280px;
     background-color: #2a2a2a;
-    border-right: 1px solid rgba(220, 20, 60, 0.4);
+    border-right: 2px solid #DC143C;  /* الخط القرمزي الواضح */
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease;
     z-index: 100;
 }
 
+/* على الشاشات المتوسطة (أجهزة لوحية) والهواتف تنطوي */
+@media (max-width: 1024px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    
+    .menu-toggle {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* على الشاشات الكبيرة (كمبيوتر) تبقى مفتوحة */
+@media (min-width: 1025px) {
+    .sidebar {
+        transform: translateX(0) !important;
+        position: relative;
+    }
+    
+    .menu-toggle {
+        display: none !important;
+    }
+}
+
 .sidebar-header {
     padding: 20px;
-    border-bottom: 1px solid rgba(220, 20, 60, 0.3);
+    border-bottom: 2px solid rgba(220, 20, 60, 0.7);
 }
 
 .new-chat-btn {
     width: 100%;
     padding: 12px;
     background-color: transparent;
-    border: 1px solid rgba(220, 20, 60, 0.5);
+    border: 1px solid #DC143C;
     border-radius: 30px;
     color: #DC143C;
     font-size: 14px;
@@ -46,7 +85,7 @@ body {
 }
 
 .new-chat-btn:hover {
-    background-color: rgba(220, 20, 60, 0.1);
+    background-color: rgba(220, 20, 60, 0.2);
 }
 
 .chat-list {
@@ -67,7 +106,12 @@ body {
 
 .chat-item:hover {
     background-color: #3a3a3a;
-    border-color: rgba(220, 20, 60, 0.3);
+    border-color: #DC143C;
+}
+
+.chat-item.active {
+    background-color: #3a3a3a;
+    border-left: 3px solid #DC143C;
 }
 
 /* ===== المنطقة الرئيسية ===== */
@@ -77,16 +121,18 @@ body {
     flex-direction: column;
     position: relative;
     background-color: #1e1e1e;
+    height: 100vh;
+    overflow: hidden;
 }
 
-/* زر القائمة للهواتف */
+/* زر القائمة للهواتف واللوحيات */
 .menu-toggle {
     display: none;
     position: fixed;
     top: 15px;
     left: 15px;
     background: #2a2a2a;
-    border: 1px solid rgba(220, 20, 60, 0.4);
+    border: 1px solid #DC143C;
     border-radius: 50%;
     width: 45px;
     height: 45px;
@@ -165,41 +211,44 @@ body {
 .bot-message .bubble {
     background-color: #2a2a2a;
     color: #e0e0e0;
-    border: 1px solid rgba(220, 20, 60, 0.4);
+    border: 1px solid #DC143C;
     border-bottom-left-radius: 8px;
 }
 
-/* صندوق الكتابة - بعد التعديل */
+/* صندوق الكتابة */
 .input-wrapper {
-    padding: 15px;
+    padding: 15px 20px;
     background-color: #1e1e1e;
-    border-top: 1px solid rgba(220, 20, 60, 0.2);
+    border-top: 2px solid #DC143C;
+    width: 100%;
     position: relative;
     bottom: 0;
-    width: 100%;
+    left: 0;
 }
 
 .input-container {
-    width: calc(100% - 30px);
+    width: 100%;
     max-width: 800px;
     margin: 0 auto;
     display: flex;
     gap: 12px;
     background-color: #2a2a2a;
-    border: 1px solid rgba(220, 20, 60, 0.4);
+    border: 2px solid #DC143C;
     border-radius: 60px;
-    padding: 6px 15px;
+    padding: 8px 15px;
 }
 
 #messageInput {
     flex: 1;
     background: transparent;
     border: none;
-    padding: 10px 8px;
+    padding: 12px 8px;
     color: #e0e0e0;
     font-size: 16px;
     outline: none;
     min-width: 0;
+    height: 45px;
+    box-sizing: border-box;
 }
 
 #messageInput::placeholder {
@@ -210,8 +259,8 @@ body {
     background-color: #DC143C;
     border: none;
     border-radius: 50%;
-    width: 42px;
-    height: 42px;
+    width: 45px;
+    height: 45px;
     flex-shrink: 0;
     color: white;
     font-size: 18px;
@@ -223,24 +272,25 @@ body {
     transform: scale(0.95);
 }
 
-/* ===== للهواتف ===== */
-@media (max-width: 768px) {
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        transform: translateX(-100%);
+/* للهواتف الصغيرة جداً */
+@media (max-width: 480px) {
+    .input-wrapper {
+        padding: 10px 15px;
     }
     
-    .sidebar.open {
-        transform: translateX(0);
+    .input-container {
+        padding: 5px 12px;
     }
     
-    .menu-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    #messageInput {
+        height: 40px;
+        font-size: 14px;
+    }
+    
+    #sendBtn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
     }
     
     .welcome h1 {
@@ -249,28 +299,5 @@ body {
     
     .bubble {
         max-width: 90%;
-    }
-}
-
-/* للهواتف الصغيرة جداً */
-@media (max-width: 480px) {
-    .input-wrapper {
-        padding: 10px;
-    }
-    
-    .input-container {
-        padding: 4px 12px;
-        gap: 8px;
-    }
-    
-    #messageInput {
-        padding: 8px 4px;
-        font-size: 14px;
-    }
-    
-    #sendBtn {
-        width: 38px;
-        height: 38px;
-        font-size: 16px;
     }
 }
