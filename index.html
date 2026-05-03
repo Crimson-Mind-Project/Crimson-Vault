@@ -1,45 +1,62 @@
-<div id="mainApp">
-    <header class="app-header">
-        <div class="header-left">
-            <div class="brain-logo small"></div>
-            <span class="app-name">CRIMSON AI</span>
-        </div>
-        <button class="menu-btn">☰</button>
-    </header>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRIMSON AI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-    <main class="chat-viewport">
-        <div id="startView" class="gemini-style-start">
-            <h1 class="welcome-text">مرحباً..<br>من أين نبدأ؟</h1>
-            
-            <div class="options-list">
-                <div class="option-pill" onclick="selectOption('إنشاء صورة')">
-                    <span>🖼️ إنشاء صورة</span>
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <button class="new-chat-btn" onclick="createNewChat()">+ محادثة جديدة</button>
+            </div>
+            <div class="chat-history">
+                <p class="section-title">المحادثات المثبتة</p>
+                <div id="pinnedChats">
+                    <div class="history-item pinned">📌 خطة المشروع</div>
                 </div>
-                <div class="option-pill" onclick="selectOption('إنشاء موسيقى')">
-                    <span>🎸 إنشاء موسيقى</span>
-                </div>
-                <div class="option-pill" onclick="selectOption('كتابة أي شيء')">
-                    <span>📄 كتابة أي شيء</span>
-                </div>
-                <div class="option-pill" onclick="selectOption('عزز إنتاجيتك اليوم')">
-                    <span>✨ عزز طاقتي وإنتاجيتي اليوم</span>
+                <p class="section-title">الأخيرة</p>
+                <div id="recentChats">
+                    <div class="history-item">تحليل البيانات</div>
                 </div>
             </div>
-        </div>
+        </aside>
 
-        <div id="aiMessage" class="chat-bubble" style="display:none;"></div>
-    </main>
-
-    <footer class="input-area-fixed">
-        <div class="input-wrapper-v3">
-            <textarea id="textIn" placeholder="اسأل Crimson AI" rows="1" oninput="autoResize(this)"></textarea>
-            <div class="action-bar">
-                <div class="left-tools">
-                    <span class="tool-icon" onclick="startVoice()">🎤</span>
-                    <span class="tool-icon">➕</span>
+        <main class="main-content">
+            <header class="top-nav">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <div class="brand">
+                    <div class="crimson-logo-small"></div>
+                    <span class="brand-name">CRIMSON AI</span>
                 </div>
-                <button class="send-btn-final" onclick="run()">➔</button>
-            </div>
-        </div>
-    </footer>
-</div>
+                <div class="user-profile">L</div>
+            </header>
+
+            <section class="chat-view">
+                <div id="welcomeView" class="welcome-center">
+                    <h1 class="welcome-text">مرحباً لؤي،<br><span class="sub-text">من أين نبدأ اليوم؟</span></h1>
+                </div>
+                <div id="chatMessages" class="messages-container"></div>
+            </section>
+
+            <footer class="input-section">
+                <div class="input-wrapper">
+                    <textarea id="userInput" placeholder="اسأل Crimson AI..." rows="1" oninput="autoResize(this)"></textarea>
+                    <div class="input-tools">
+                        <div class="left-tools">
+                            <button class="tool-btn">🎤</button>
+                            <button class="tool-btn">➕</button>
+                        </div>
+                        <button class="send-btn" onclick="sendMessage()">➔</button>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
