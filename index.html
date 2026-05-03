@@ -1,59 +1,46 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRIMSON AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Crimson AI - الذكاء القرمزي</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="app-container">
-        <aside class="sidebar" id="sidebar">
+        <!-- الشريط العلوي -->
+        <div class="header">
+            <div class="menu-icon" id="menuIcon">☰</div>
+            <div class="logo">CRIMSON AI</div>
+            <div class="settings-icon" id="settingsIcon">⚙️</div>
+        </div>
+
+        <!-- القائمة الجانبية -->
+        <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <button class="new-chat-btn" onclick="createNewChat()">+ محادثة جديدة</button>
+                <span>المحادثات</span>
+                <button class="new-chat-btn" id="newChatBtn">+ جديد</button>
             </div>
-            <div class="chat-history">
-                <p class="section-title">المحادثات المثبتة</p>
-                <div id="pinnedChats">
-                    <div class="history-item">📌 خطة Crimson المبدئية</div>
-                </div>
-                <p class="section-title">الأخيرة</p>
-                <div id="recentChats"></div>
+            <div class="chat-list" id="chatList">
+                <!-- المحادثات المحفوظة ستظهر هنا -->
+                <div class="chat-item active">محادثة جديدة</div>
             </div>
-        </aside>
+        </div>
 
-        <main class="main-content" id="mainContent">
-            <header class="top-nav">
-                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-                <div class="brand">
-                    <div class="crimson-logo-small"></div>
-                    <span class="brand-name">CRIMSON AI</span>
+        <!-- منطقة المحادثة الرئيسية -->
+        <div class="chat-area">
+            <div class="messages-container" id="messagesContainer">
+                <div class="message bot-message">
+                    <div class="bubble">مرحباً أنا Crimson AI. ماذا تريد مني أن أفعل لك اليوم؟</div>
                 </div>
-                <div class="user-profile">L</div>
-            </header>
+            </div>
 
-            <section class="chat-view">
-                <div id="welcomeView" class="welcome-center">
-                    <h1 class="welcome-text">مرحباً لؤي،<br><span class="sub-text">من أين نبدأ اليوم؟</span></h1>
-                </div>
-                <div id="chatMessages" class="messages-container"></div>
-            </section>
-
-            <footer class="input-section">
-                <div class="input-wrapper">
-                    <textarea id="userInput" placeholder="اسأل Crimson AI..." rows="1" oninput="autoResize(this)"></textarea>
-                    <div class="input-tools">
-                        <div class="left-tools">
-                            <span class="tool-icon" onclick="startVoice()">🎤</span>
-                            <span class="tool-icon">➕</span>
-                        </div>
-                        <button class="send-btn" id="sendBtn" onclick="sendMessage()">➔</button>
-                    </div>
-                </div>
-                <p class="disclaimer">نظام كرمسون الذكي - الإصدار التجريبي</p>
-            </footer>
-        </main>
+            <!-- صندوق الكتابة -->
+            <div class="input-area">
+                <input type="text" id="messageInput" placeholder="اكتب رسالتك هنا..." autocomplete="off">
+                <button id="sendBtn">➤</button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
