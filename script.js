@@ -8,14 +8,14 @@ const welcomeScreen = document.getElementById('welcomeScreen');
 const chatContainer = document.getElementById('chatContainer');
 const newChatBtn = document.getElementById('newChatBtn');
 
-// فتح وإغلاق القائمة الجانبية (للهواتف)
+// فتح وإغلاق القائمة الجانبية
 menuToggle.addEventListener('click', () => {
     sidebar.classList.toggle('open');
 });
 
-// إغلاق القائمة عند الضغط خارجها (للهواتف)
+// إغلاق القائمة عند الضغط خارجها (للهواتف واللوحيات)
 document.addEventListener('click', (event) => {
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 1024) {
         if (!sidebar.contains(event.target) && event.target !== menuToggle) {
             sidebar.classList.remove('open');
         }
@@ -26,13 +26,17 @@ document.addEventListener('click', (event) => {
 newChatBtn.addEventListener('click', () => {
     // مسح المحادثة
     messagesDiv.innerHTML = '';
-    // إظهار شاشة الترحيب
+    // إظهار شاشة الترحيب وإخفاء المحادثة
     welcomeScreen.classList.remove('hidden');
     chatContainer.classList.add('hidden');
     // إزالة التنشيط من عناصر القائمة
     document.querySelectorAll('.chat-item').forEach(item => {
         item.classList.remove('active');
     });
+    // إغلاق القائمة على الأجهزة الصغيرة
+    if (window.innerWidth <= 1024) {
+        sidebar.classList.remove('open');
+    }
 });
 
 // إرسال الرسالة
@@ -73,22 +77,27 @@ function addMessage(text, sender) {
     chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
-// إضافة عناصر محادثة سابقة (عند النقر عليها)
+// عناصر المحادثة السابقة
 document.querySelectorAll('.chat-item').forEach((item, index) => {
     item.addEventListener('click', () => {
         // إخفاء الترحيب وإظهار المحادثة
         welcomeScreen.classList.add('hidden');
         chatContainer.classList.remove('hidden');
         
-        // إزالة التنشيط من الكل
+        // إزالة التنشيط من الكل ثم تنشيط العنصر المختار
         document.querySelectorAll('.chat-item').forEach(i => i.classList.remove('active'));
         item.classList.add('active');
         
-        // محاكاة تحميل محادثة سابقة (سيتم ربطها بقاعدة البيانات لاحقاً)
+        // محاكاة تحميل محادثة سابقة
         messagesDiv.innerHTML = '';
         addMessage(item.textContent, 'user');
         setTimeout(() => {
-            addMessage(`هذه محادثة سابقة بعنوان: "${item.textContent}". سأعمل على تذكر كل شيء عندما نربط قاعدة البيانات.`, 'bot');
+            addMessage(`هذه محادثة سابقة بعنوان: "${item.textContent}". سيتم تذكر كل شيء عند ربط قاعدة البيانات.`, 'bot');
         }, 300);
+        
+        // إغلاق القائمة على الأجهزة الصغيرة بعد النقر
+        if (window.innerWidth <= 1024) {
+            sidebar.classList.remove('open');
+        }
     });
 });
