@@ -1,21 +1,38 @@
 // عناصر الصفحة
-const menuIcon = document.getElementById('menuIcon');
+const menuToggle = document.getElementById('menuToggle');
 const sidebar = document.getElementById('sidebar');
 const sendBtn = document.getElementById('sendBtn');
 const messageInput = document.getElementById('messageInput');
-const messagesContainer = document.getElementById('messagesContainer');
+const messagesDiv = document.getElementById('messages');
+const welcomeScreen = document.getElementById('welcomeScreen');
+const chatContainer = document.getElementById('chatContainer');
 const newChatBtn = document.getElementById('newChatBtn');
 
-// فتح وإغلاق القائمة الجانبية
-menuIcon.addEventListener('click', () => {
+// فتح وإغلاق القائمة الجانبية (للهواتف)
+menuToggle.addEventListener('click', () => {
     sidebar.classList.toggle('open');
 });
 
-// إغلاق القائمة عند الضغط خارجها
+// إغلاق القائمة عند الضغط خارجها (للهواتف)
 document.addEventListener('click', (event) => {
-    if (!sidebar.contains(event.target) && event.target !== menuIcon && !sidebar.classList.contains('open')) {
-        sidebar.classList.remove('open');
+    if (window.innerWidth <= 768) {
+        if (!sidebar.contains(event.target) && event.target !== menuToggle) {
+            sidebar.classList.remove('open');
+        }
     }
+});
+
+// بدء محادثة جديدة
+newChatBtn.addEventListener('click', () => {
+    // مسح المحادثة
+    messagesDiv.innerHTML = '';
+    // إظهار شاشة الترحيب
+    welcomeScreen.classList.remove('hidden');
+    chatContainer.classList.add('hidden');
+    // إزالة التنشيط من عناصر القائمة
+    document.querySelectorAll('.chat-item').forEach(item => {
+        item.classList.remove('active');
+    });
 });
 
 // إرسال الرسالة
@@ -30,13 +47,17 @@ function sendMessage() {
     const message = messageInput.value.trim();
     if (message === '') return;
 
+    // إخفاء شاشة الترحيب وإظهار منطقة المحادثة
+    welcomeScreen.classList.add('hidden');
+    chatContainer.classList.remove('hidden');
+
     // عرض رسالة المستخدم
     addMessage(message, 'user');
     messageInput.value = '';
 
     // رد البوت
     setTimeout(() => {
-        const botReply = `أنت قلت: "${message}"\n\nأنا Crimson AI، عبدك المطيع. ماذا تريدني أن أفعل لك؟`;
+        const botReply = `أنا Crimson AI، عبدك المطيع.\n\nلقد استلمت رسالتك: "${message}"\n\nماذا تريدني أن أفعل لك بالضبط؟`;
         addMessage(botReply, 'bot');
     }, 500);
 }
@@ -45,14 +66,29 @@ function sendMessage() {
 function addMessage(text, sender) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${sender}-message`;
-    messageDiv.innerHTML = `<div class="bubble">${text}</div>`;
-    messagesContainer.appendChild(messageDiv);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    messageDiv.innerHTML = `<div class="bubble">${text.replace(/\n/g, '<br>')}</div>`;
+    messagesDiv.appendChild(messageDiv);
+    
+    // التمرير للأسفل
+    chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
-// إنشاء محادثة جديدة
-newChatBtn.addEventListener('click', () => {
-    messagesContainer.innerHTML = '';
-    addMessage('مرحباً أنا Crimson AI. ماذا تريد مني أن أفعل لك اليوم؟', 'bot');
-    sidebar.classList.remove('open');
+// إضافة عناصر محادثة سابقة (عند النقر عليها)
+document.querySelectorAll('.chat-item').forEach((item, index) => {
+    item.addEventListener('click', () => {
+        // إخفاء الترحيب وإظهار المحادثة
+        welcomeScreen.classList.add('hidden');
+        chatContainer.classList.remove('hidden');
+        
+        // إزالة التنشيط من الكل
+        document.querySelectorAll('.chat-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        
+        // محاكاة تحميل محادثة سابقة (سيتم ربطها بقاعدة البيانات لاحقاً)
+        messagesDiv.innerHTML = '';
+        addMessage(item.textContent, 'user');
+        setTimeout(() => {
+            addMessage(`هذه محادثة سابقة بعنوان: "${item.textContent}". سأعمل على تذكر كل شيء عندما نربط قاعدة البيانات.`, 'bot');
+        }, 300);
+    });
 });
