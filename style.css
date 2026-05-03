@@ -169,32 +169,37 @@ body {
     border-bottom-left-radius: 8px;
 }
 
-/* صندوق الكتابة */
+/* صندوق الكتابة - بعد التعديل */
 .input-wrapper {
-    padding: 20px;
+    padding: 15px;
     background-color: #1e1e1e;
     border-top: 1px solid rgba(220, 20, 60, 0.2);
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
 
 .input-container {
+    width: calc(100% - 30px);
     max-width: 800px;
     margin: 0 auto;
     display: flex;
-    gap: 15px;
+    gap: 12px;
     background-color: #2a2a2a;
     border: 1px solid rgba(220, 20, 60, 0.4);
     border-radius: 60px;
-    padding: 8px 15px;
+    padding: 6px 15px;
 }
 
 #messageInput {
     flex: 1;
     background: transparent;
     border: none;
-    padding: 12px 8px;
+    padding: 10px 8px;
     color: #e0e0e0;
     font-size: 16px;
     outline: none;
+    min-width: 0;
 }
 
 #messageInput::placeholder {
@@ -205,10 +210,11 @@ body {
     background-color: #DC143C;
     border: none;
     border-radius: 50%;
-    width: 45px;
-    height: 45px;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
     color: white;
-    font-size: 20px;
+    font-size: 18px;
     cursor: pointer;
     transition: transform 0.1s;
 }
@@ -243,5 +249,28 @@ body {
     
     .bubble {
         max-width: 90%;
+    }
+}
+
+/* للهواتف الصغيرة جداً */
+@media (max-width: 480px) {
+    .input-wrapper {
+        padding: 10px;
+    }
+    
+    .input-container {
+        padding: 4px 12px;
+        gap: 8px;
+    }
+    
+    #messageInput {
+        padding: 8px 4px;
+        font-size: 14px;
+    }
+    
+    #sendBtn {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
     }
 }
