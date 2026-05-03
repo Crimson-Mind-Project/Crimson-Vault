@@ -16,16 +16,14 @@
             <div class="chat-history">
                 <p class="section-title">المحادثات المثبتة</p>
                 <div id="pinnedChats">
-                    <div class="history-item pinned">📌 خطة المشروع</div>
+                    <div class="history-item">📌 خطة Crimson المبدئية</div>
                 </div>
                 <p class="section-title">الأخيرة</p>
-                <div id="recentChats">
-                    <div class="history-item">تحليل البيانات</div>
-                </div>
+                <div id="recentChats"></div>
             </div>
         </aside>
 
-        <main class="main-content">
+        <main class="main-content" id="mainContent">
             <header class="top-nav">
                 <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
                 <div class="brand">
@@ -47,12 +45,13 @@
                     <textarea id="userInput" placeholder="اسأل Crimson AI..." rows="1" oninput="autoResize(this)"></textarea>
                     <div class="input-tools">
                         <div class="left-tools">
-                            <button class="tool-btn">🎤</button>
-                            <button class="tool-btn">➕</button>
+                            <span class="tool-icon" onclick="startVoice()">🎤</span>
+                            <span class="tool-icon">➕</span>
                         </div>
-                        <button class="send-btn" onclick="sendMessage()">➔</button>
+                        <button class="send-btn" id="sendBtn" onclick="sendMessage()">➔</button>
                     </div>
                 </div>
+                <p class="disclaimer">نظام كرمسون الذكي - الإصدار التجريبي</p>
             </footer>
         </main>
     </div>
