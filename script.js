@@ -14,7 +14,7 @@ menuIcon.addEventListener('click', () => {
 // إغلاق القائمة عند الضغط خارجها
 document.addEventListener('click', (event) => {
     if (!sidebar.contains(event.target) && event.target !== menuIcon && !sidebar.classList.contains('open')) {
-    sidebar.classList.remove('open');
+        sidebar.classList.remove('open');
     }
 });
 
@@ -34,7 +34,7 @@ function sendMessage() {
     addMessage(message, 'user');
     messageInput.value = '';
 
-    // محاكاة رد الذكاء الاصطناعي (سيتم ربطه بـ API حقيقي لاحقاً)
+    // رد البوت
     setTimeout(() => {
         const botReply = `أنت قلت: "${message}"\n\nأنا Crimson AI، عبدك المطيع. ماذا تريدني أن أفعل لك؟`;
         addMessage(botReply, 'bot');
@@ -56,6 +56,3 @@ newChatBtn.addEventListener('click', () => {
     addMessage('مرحباً أنا Crimson AI. ماذا تريد مني أن أفعل لك اليوم؟', 'bot');
     sidebar.classList.remove('open');
 });
-
-// بداية: نسمي المحادثة الحالية
-let chatCounter = 1;
